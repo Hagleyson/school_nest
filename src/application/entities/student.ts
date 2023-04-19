@@ -7,7 +7,7 @@ export interface StudentProps {
   cpf: string;
   rg: string;
   school_education: string;
-  course: Course[];
+  course?: Course[];
   birth_date: Date;
   createdAt: Date;
 }
