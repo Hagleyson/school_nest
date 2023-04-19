@@ -2,11 +2,13 @@ import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-n
 import { CreateCourse } from './create-course';
 
 import { ListCourse } from './list-course';
+import { UpdateCourse } from './update-course';
 
 describe('Create course use cases', () => {
   it('should be able to create course', async () => {
     const courseRepository = new InMemoryCourseRepository();
     const createCourse = new CreateCourse(courseRepository);
+    const updateCourse = new UpdateCourse(courseRepository);
     const findCourse = new ListCourse(courseRepository);
 
     const { course } = await createCourse.execute({
@@ -15,10 +17,23 @@ describe('Create course use cases', () => {
       period: 'string',
       teacher_name: 'string',
     });
-
+    await createCourse.execute({
+      name: 'string',
+      content: 'string',
+      period: 'string',
+      teacher_name: 'string',
+    });
+    const { course: updatedCourse } = await updateCourse.execute({
+      id: course.id,
+      name: 'name',
+      content: 'content',
+      period: 'period',
+      teacher_name: 'teacher_name',
+    });
     const list = await findCourse.execute();
 
-    expect(list.course).toHaveLength(1);
-    expect(courseRepository.courses[0]).toEqual(course);
+    expect(list.course).toHaveLength(2);
+    expect(courseRepository.courses[0]).toEqual(updatedCourse);
+    expect(courseRepository.courses[1]).not.toEqual(updatedCourse);
   });
 });

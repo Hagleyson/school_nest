@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CourseRepository } from 'src/application/repositories/course-repository';
+import { CourseRepository } from '../../repositories/course-repository';
 import { CourseNotFound } from './erros/course-not-found';
 
 interface deleteCourseRequest {
