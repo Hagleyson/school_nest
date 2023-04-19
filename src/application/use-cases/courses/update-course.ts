@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Course } from 'src/application/entities/courses';
 import { CourseRepository } from 'src/application/repositories/course-repository';
 
-interface createCourseRequest {
+interface updateCourseRequest {
   id: string;
   name: string;
   content: string;
@@ -24,7 +24,7 @@ export class UpdateNotification {
     content,
     period,
     teacher_name,
-  }: createCourseRequest): Promise<updateCourseResponse> {
+  }: updateCourseRequest): Promise<updateCourseResponse> {
     const course = new Course({ name, content, period, teacher_name });
     await this.courseRepository.update(id, course);
     return { course };

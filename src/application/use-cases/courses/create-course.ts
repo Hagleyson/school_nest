@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Course } from 'src/application/entities/courses';
-import { CourseRepository } from 'src/application/repositories/course-repository';
+import { Course } from '../../entities/courses';
+import { CourseRepository } from '../../repositories/course-repository';
 
 interface createCourseRequest {
   name: string;
@@ -14,7 +14,7 @@ interface createCourseResponse {
 }
 
 @Injectable()
-export class CreateNotification {
+export class CreateCourse {
   constructor(private courseRepository: CourseRepository) {}
 
   async execute({
