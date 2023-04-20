@@ -11,7 +11,7 @@ interface createStudentRequest {
   school_education: string;
   course?: Course[];
   birth_date: Date;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface createStudentResponse {
@@ -19,7 +19,7 @@ interface createStudentResponse {
 }
 
 @Injectable()
-export class CreateCourse {
+export class CreateStudent {
   constructor(private studentRepository: StudentRepository) {}
 
   async execute({
@@ -28,9 +28,7 @@ export class CreateCourse {
     rg,
     school_education,
     course,
-
     birth_date,
-    createdAt,
   }: createStudentRequest): Promise<createStudentResponse> {
     const student = new Student({
       name,
@@ -39,7 +37,6 @@ export class CreateCourse {
       school_education,
       course,
       birth_date,
-      createdAt,
     });
     await this.studentRepository.create(student);
     return { student };

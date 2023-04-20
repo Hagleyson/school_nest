@@ -1,10 +1,10 @@
-import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-notification-repository';
+import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-course-repository';
 import { CreateCourse } from './create-course';
 import { DeleteCourse } from './delete-course';
 
 import { ListCourse } from './list-course';
 
-describe('Create course use cases', () => {
+describe('Delete course use cases', () => {
   it('should be able to create course', async () => {
     const courseRepository = new InMemoryCourseRepository();
     const createCourse = new CreateCourse(courseRepository);
