@@ -4,8 +4,8 @@ import { CreateCourse } from './create-course';
 import { ListCourse } from './list-course';
 import { UpdateCourse } from './update-course';
 
-describe('Create course use cases', () => {
-  it('should be able to create course', async () => {
+describe('Update course use cases', () => {
+  it('should be able to update course', async () => {
     const courseRepository = new InMemoryCourseRepository();
     const createCourse = new CreateCourse(courseRepository);
     const updateCourse = new UpdateCourse(courseRepository);

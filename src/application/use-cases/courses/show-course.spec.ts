@@ -2,8 +2,8 @@ import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-c
 import { CreateCourse } from './create-course';
 import { ShowCourse } from './show-course';
 
-describe('Create course use cases', () => {
-  it('should be able to create course', async () => {
+describe('show course use cases', () => {
+  it('should be able to show course', async () => {
     const courseRepository = new InMemoryCourseRepository();
     const createCourse = new CreateCourse(courseRepository);
 

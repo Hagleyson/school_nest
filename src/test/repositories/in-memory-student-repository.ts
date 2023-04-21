@@ -9,6 +9,8 @@ export class InMemoryStudentRepository implements StudentRepository {
   }
   async findById(student_id: string): Promise<Student> {
     const student = this.student.find((item) => item.id === student_id);
+    console.log('student_id ', student_id);
+    this.student.forEach((current) => console.log(current.id));
     if (!student) {
       return null;
     }
@@ -18,6 +20,8 @@ export class InMemoryStudentRepository implements StudentRepository {
     return this.student;
   }
   async update(id: string, student: Student): Promise<void> {
+    console.log('id ', id);
+    console.log('student ', student.id);
     const updatedStudent = this.student.map((item) => {
       if (item.id === id) {
         return student;

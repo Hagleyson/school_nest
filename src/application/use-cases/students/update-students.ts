@@ -12,7 +12,7 @@ interface updateStudentRequest {
   school_education: string;
   course?: Course[];
   birth_date: Date;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface updateStudentResponse {
@@ -30,19 +30,21 @@ export class UpdateStudent {
     rg,
     school_education,
     course,
-
     birth_date,
     createdAt,
   }: updateStudentRequest): Promise<updateStudentResponse> {
-    const student = new Student({
-      name,
-      cpf,
-      rg,
-      school_education,
-      course,
-      birth_date,
-      createdAt,
-    });
+    const student = new Student(
+      {
+        name,
+        cpf,
+        rg,
+        school_education,
+        course,
+        birth_date,
+        createdAt,
+      },
+      id,
+    );
     await this.studentRepository.update(id, student);
     return { student };
   }

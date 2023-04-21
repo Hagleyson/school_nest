@@ -12,7 +12,7 @@ interface showStudentResponse {
 }
 
 @Injectable()
-export class ShowStudents {
+export class DeleteStudents {
   constructor(private studentRepository: StudentRepository) {}
 
   async execute({ id }: showStudentRequest): Promise<showStudentResponse> {

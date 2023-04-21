@@ -5,7 +5,7 @@ import { DeleteCourse } from './delete-course';
 import { ListCourse } from './list-course';
 
 describe('Delete course use cases', () => {
-  it('should be able to create course', async () => {
+  it('should be able to delete course', async () => {
     const courseRepository = new InMemoryCourseRepository();
     const createCourse = new CreateCourse(courseRepository);
     const deleteCourse = new DeleteCourse(courseRepository);
