@@ -1,8 +1,6 @@
-import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-course-repository';
 import { makeCourse } from '../../../test/factories/course-factory';
 import { InMemoryStudentRepository } from '../../../test/repositories/in-memory-student-repository';
-import { CreateCourse } from '../courses/create-course';
-import { DeleteCourse } from '../courses/delete-course';
+
 import { CreateStudent } from './create-students';
 import { ListStudent } from './list-students';
 import { DeleteStudents } from './delete-students';

@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE `Student` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
     `cpf` VARCHAR(191) NOT NULL,
     `rg` VARCHAR(191) NOT NULL,
     `school_education` VARCHAR(191) NOT NULL,

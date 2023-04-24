@@ -7,7 +7,7 @@ export class InMemoryStudentRepository implements StudentRepository {
   async create(student: Student): Promise<void> {
     this.student.push(student);
   }
-  async findById(student_id: string): Promise<Student> {
+  async findById(student_id: number): Promise<Student> {
     const student = this.student.find((item) => item.id === student_id);
     console.log('student_id ', student_id);
     this.student.forEach((current) => console.log(current.id));
@@ -19,7 +19,7 @@ export class InMemoryStudentRepository implements StudentRepository {
   async findAll(): Promise<Student[]> {
     return this.student;
   }
-  async update(id: string, student: Student): Promise<void> {
+  async update(id: number, student: Student): Promise<void> {
     console.log('id ', id);
     console.log('student ', student.id);
     const updatedStudent = this.student.map((item) => {
@@ -30,7 +30,7 @@ export class InMemoryStudentRepository implements StudentRepository {
     });
     this.student = updatedStudent;
   }
-  async delete(student_id: string): Promise<void> {
+  async delete(student_id: number): Promise<void> {
     const filteredStudent = this.student.filter(
       (item) => item.id !== student_id,
     );

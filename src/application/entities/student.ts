@@ -7,22 +7,22 @@ export interface StudentProps {
   cpf: string;
   rg: string;
   school_education: string;
-  course?: Course[];
   birth_date: Date;
-  createdAt: Date;
+  createdAt?: Date;
+  course?: Course[];
 }
 
 export class Student {
-  private _id: string;
+  private _id: number;
   private props: StudentProps;
 
-  constructor(props: Replace<StudentProps, { createdAt?: Date }>, id?: string) {
-    this._id = id ?? randomUUID();
+  constructor(props: Replace<StudentProps, { createdAt?: Date }>, id?: number) {
     this.props = { ...props, createdAt: props.createdAt ?? new Date() };
+    this.id = id;
   }
 
-  public set id(_id: string) {
-    this._id = _id;
+  public set id(_id: number) {
+    this._id = this.id ?? _id;
   }
   public get id() {
     return this._id;

@@ -1,14 +1,26 @@
-import { IsNotEmpty, IsUUID, Length } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
+import { CreateCourseBody } from '../course/create-course-body';
 
 export class CreateStudentBody {
   @IsNotEmpty()
-  content: string;
+  name: string;
 
   @IsNotEmpty()
-  @Length(5, 240)
-  category: string;
+  cpf: string;
 
   @IsNotEmpty()
-  @IsUUID()
-  recipientId: string;
+  rg: string;
+
+  @IsNotEmpty()
+  school_education: string;
+
+  @IsNotEmpty()
+  @Type(() => CreateCourseBody)
+  @IsArray()
+  @ValidateNested({ each: true })
+  course?: CreateCourseBody[];
+
+  @IsNotEmpty()
+  birth_date: Date;
 }

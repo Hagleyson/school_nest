@@ -6,7 +6,7 @@ export interface CourseProps {
   content: string;
   period: string;
   teacher_name: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export class Course {

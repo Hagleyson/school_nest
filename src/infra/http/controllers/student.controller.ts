@@ -9,13 +9,22 @@ import {
 } from '@nestjs/common';
 
 import { CreateStudentBody } from '../dto';
+import { CreateStudent } from '@application/use-cases';
 
 @Controller('student')
 export class StudentController {
-  constructor() {}
+  constructor(private createStudent: CreateStudent) {}
 
   @Post()
   async create(@Body() body: CreateStudentBody) {
+    const { birth_date, cpf, name, rg, school_education, course } = body;
+    await this.createStudent.execute({
+      name,
+      cpf,
+      rg,
+      school_education,
+      birth_date,
+    });
     return {
       body,
     };

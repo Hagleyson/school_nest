@@ -4,7 +4,7 @@ import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
 
 interface showStudentRequest {
-  id: string;
+  id: number;
 }
 
 interface showStudentResponse {

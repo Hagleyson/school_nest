@@ -5,7 +5,7 @@ import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
 
 interface updateStudentRequest {
-  id: string;
+  id: number;
   name: string;
   cpf: string;
   rg: string;
@@ -33,18 +33,15 @@ export class UpdateStudent {
     birth_date,
     createdAt,
   }: updateStudentRequest): Promise<updateStudentResponse> {
-    const student = new Student(
-      {
-        name,
-        cpf,
-        rg,
-        school_education,
-        course,
-        birth_date,
-        createdAt,
-      },
-      id,
-    );
+    const student = new Student({
+      name,
+      cpf,
+      rg,
+      school_education,
+      course,
+      birth_date,
+      createdAt,
+    });
     await this.studentRepository.update(id, student);
     return { student };
   }
