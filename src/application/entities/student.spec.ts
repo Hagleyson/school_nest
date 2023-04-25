@@ -23,7 +23,6 @@ describe('Course test', () => {
       rg: '000000000',
       school_education: 'Graduado',
     });
-    console.log(student);
 
     expect(student).toBeTruthy();
   });

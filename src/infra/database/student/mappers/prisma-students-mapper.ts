@@ -2,7 +2,7 @@ import { Student } from '@application/entities/student';
 import { Student as RawStudent } from '@prisma/client';
 import * as moment from 'moment';
 
-export class PrismaCourseMapper {
+export class PrismaStudentMapper {
   static toPrisma(student: Student) {
     const formattedData = {
       id: student.id,
@@ -13,7 +13,7 @@ export class PrismaCourseMapper {
       rg: student.rg,
       school_education: student.school_education,
     };
-    console.log(formattedData);
+
     return formattedData;
   }
 

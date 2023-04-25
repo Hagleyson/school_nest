@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
+import { StudentNotFound } from './erros/student-not-found';
 
 interface showStudentRequest {
   id: number;
 }
 
 interface showStudentResponse {
-  student: Student;
+  message: string;
 }
 
 @Injectable()
@@ -16,8 +17,11 @@ export class DeleteStudents {
   constructor(private studentRepository: StudentRepository) {}
 
   async execute({ id }: showStudentRequest): Promise<showStudentResponse> {
-    const student = await this.studentRepository.findById(id);
+    const student = await this.studentRepository.findById(+id);
+    if (!student) {
+      throw new StudentNotFound();
+    }
     await this.studentRepository.delete(student.id);
-    return { student };
+    return { message: `student ${student.name} deleted` };
   }
 }

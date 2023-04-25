@@ -3,6 +3,7 @@ import { Course } from '../../entities/courses';
 
 import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
+import { StudentNotFound } from './erros/student-not-found';
 
 interface updateStudentRequest {
   id: number;
@@ -33,6 +34,10 @@ export class UpdateStudent {
     birth_date,
     createdAt,
   }: updateStudentRequest): Promise<updateStudentResponse> {
+    const filterStudent = await this.studentRepository.findById(+id);
+    if (!filterStudent) {
+      throw new StudentNotFound();
+    }
     const student = new Student({
       name,
       cpf,
@@ -42,6 +47,7 @@ export class UpdateStudent {
       birth_date,
       createdAt,
     });
+
     await this.studentRepository.update(id, student);
     return { student };
   }

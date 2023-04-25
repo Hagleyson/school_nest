@@ -2,25 +2,38 @@ import { PrismaService } from '@infra/database/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { StudentRepository } from '@application/repositories/student-repository';
 import { Student } from '@application/entities/student';
-import { PrismaCourseMapper } from '../mappers/prisma-students-mapper';
+import { PrismaStudentMapper } from '../mappers/prisma-students-mapper';
 
 @Injectable()
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prismaService: PrismaService) {}
+  async findById(student_id: number): Promise<Student> {
+    const student = await this.prismaService.student.findUnique({
+      where: { id: student_id },
+    });
+    if (!student) {
+      return null;
+    }
+    return PrismaStudentMapper.toDomain(student);
+  }
+  async findAll(): Promise<Student[]> {
+    const student = await this.prismaService.student.findMany();
+    return student.map((element) => PrismaStudentMapper.toDomain(element));
+  }
   async create(student: Student): Promise<void> {
-    const raw = PrismaCourseMapper.toPrisma(student);
+    const raw = PrismaStudentMapper.toPrisma(student);
     await this.prismaService.student.create({ data: raw });
   }
-  findById(student_id: number): Promise<Student> {
-    throw new Error('Method not implemented.');
+
+  async update(id: number, student: Student): Promise<void> {
+    const raw = PrismaStudentMapper.toPrisma(student);
+
+    await this.prismaService.student.update({
+      where: { id: +id },
+      data: raw,
+    });
   }
-  findAll(): Promise<Student[]> {
-    throw new Error('Method not implemented.');
-  }
-  update(id: number, student: Student): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-  delete(student_id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(student_id: number): Promise<void> {
+    await this.prismaService.student.delete({ where: { id: +student_id } });
   }
 }

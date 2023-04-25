@@ -38,6 +38,7 @@ export class CreateStudent {
       course,
       birth_date,
     });
+
     await this.studentRepository.create(student);
     return { student };
   }
