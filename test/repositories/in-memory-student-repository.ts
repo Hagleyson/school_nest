@@ -1,5 +1,5 @@
-import { Student } from './../../application/entities/student';
-import { StudentRepository } from './../../application/repositories/student-repository';
+import { Student } from '@application/entities/student';
+import { StudentRepository } from '@application/repositories/student-repository';
 
 export class InMemoryStudentRepository implements StudentRepository {
   public student: Student[] = [];

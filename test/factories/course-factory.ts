@@ -1,4 +1,4 @@
-import { Course, CourseProps } from '../../application/entities/courses';
+import { Course, CourseProps } from '@application/entities/courses';
 
 type Override = Partial<CourseProps>;
 

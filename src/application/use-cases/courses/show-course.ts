@@ -4,7 +4,7 @@ import { CourseNotFound } from './erros/course-not-found';
 import { Course } from '../../entities/courses';
 
 interface deleteCourseRequest {
-  id: string;
+  id: number;
 }
 interface deleteCourseResponse {
   course: Course;

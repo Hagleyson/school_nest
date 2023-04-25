@@ -25,6 +25,7 @@ export class CreateCourse {
   }: createCourseRequest): Promise<createCourseResponse> {
     const course = new Course({ name, content, period, teacher_name });
     await this.courseRepository.create(course);
+
     return { course };
   }
 }

@@ -3,7 +3,7 @@ import { CourseRepository } from '../../repositories/course-repository';
 import { CourseNotFound } from './erros/course-not-found';
 
 interface deleteCourseRequest {
-  id: string;
+  id: number;
 }
 @Injectable()
 export class DeleteCourse {

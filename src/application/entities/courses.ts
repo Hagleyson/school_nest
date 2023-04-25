@@ -10,13 +10,13 @@ export interface CourseProps {
 }
 
 export class Course {
-  private _id: string;
+  private _id: number;
   private props: CourseProps;
-  constructor(props: Replace<CourseProps, { createdAt?: Date }>, id?: string) {
-    this._id = id ?? randomUUID();
+  constructor(props: Replace<CourseProps, { createdAt?: Date }>, id?: number) {
     this.props = { ...props, createdAt: props.createdAt ?? new Date() };
+    this._id = id;
   }
-  public set id(_id: string) {
+  public set id(_id: number) {
     this._id = _id;
   }
   public get id() {

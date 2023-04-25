@@ -1,4 +1,4 @@
-import { InMemoryCourseRepository } from '../../../test/repositories/in-memory-course-repository';
+import { InMemoryCourseRepository } from '@test/repositories/in-memory-course-repository';
 import { CreateCourse } from './create-course';
 
 import { ListCourse } from './list-course';

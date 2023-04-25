@@ -1,5 +1,5 @@
-import { makeCourse } from '../../../test/factories/course-factory';
-import { InMemoryStudentRepository } from '../../../test/repositories/in-memory-student-repository';
+import { makeCourse } from '@test/factories/course-factory';
+import { InMemoryStudentRepository } from '@test/repositories/in-memory-student-repository';
 import { CreateStudent } from './create-students';
 import { ListStudent } from './list-students';
 
