@@ -11,7 +11,7 @@ interface updateStudentRequest {
   cpf: string;
   rg: string;
   school_education: string;
-  course?: Course[];
+
   birth_date: Date;
   createdAt?: Date;
 }
@@ -30,7 +30,7 @@ export class UpdateStudent {
     cpf,
     rg,
     school_education,
-    course,
+
     birth_date,
     createdAt,
   }: updateStudentRequest): Promise<updateStudentResponse> {
@@ -43,7 +43,7 @@ export class UpdateStudent {
       cpf,
       rg,
       school_education,
-      course,
+
       birth_date,
       createdAt,
     });

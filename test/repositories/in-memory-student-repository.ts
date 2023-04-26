@@ -1,5 +1,6 @@
 import { Student } from '@application/entities/student';
 import { StudentRepository } from '@application/repositories/student-repository';
+import { AddingOrRemovingStudentCourseRequest } from 'src/shared/interfaces';
 
 export class InMemoryStudentRepository implements StudentRepository {
   public student: Student[] = [];
@@ -34,5 +35,11 @@ export class InMemoryStudentRepository implements StudentRepository {
       (item) => item.id !== student_id,
     );
     this.student = filteredStudent;
+  }
+
+  async addingOrRemovingStudentCourse(
+    props: AddingOrRemovingStudentCourseRequest,
+  ): Promise<any> {
+    console.log(props);
   }
 }

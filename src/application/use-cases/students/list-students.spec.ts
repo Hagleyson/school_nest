@@ -7,7 +7,7 @@ describe('List student use cases', () => {
   it('should be able to list student', async () => {
     const studentRepository = new InMemoryStudentRepository();
     const createStudent = new CreateStudent(studentRepository);
-    const course = makeCourse();
+
     const findStudent = new ListStudent(studentRepository);
 
     const { student } = await createStudent.execute({
@@ -16,7 +16,6 @@ describe('List student use cases', () => {
       cpf: '087.405.434-63',
       rg: '000000000',
       school_education: 'superior completo',
-      course: [course],
     });
 
     const { student: student2 } = await createStudent.execute({

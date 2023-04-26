@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Course } from '../../entities/courses';
 
 import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
+import { Course } from '@application/entities/courses';
 
 interface createStudentRequest {
   name: string;
   cpf: string;
   rg: string;
   school_education: string;
-  course?: Course[];
   birth_date: Date;
   createdAt?: Date;
 }
@@ -27,7 +26,6 @@ export class CreateStudent {
     cpf,
     rg,
     school_education,
-    course,
     birth_date,
   }: createStudentRequest): Promise<createStudentResponse> {
     const student = new Student({
@@ -35,7 +33,6 @@ export class CreateStudent {
       cpf,
       rg,
       school_education,
-      course,
       birth_date,
     });
 

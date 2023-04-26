@@ -17,7 +17,11 @@ export class Student {
   private props: StudentProps;
 
   constructor(props: Replace<StudentProps, { createdAt?: Date }>, id?: number) {
-    this.props = { ...props, createdAt: props.createdAt ?? new Date() };
+    this.props = {
+      ...props,
+      course: [],
+      createdAt: props.createdAt ?? new Date(),
+    };
     this.id = id;
   }
 

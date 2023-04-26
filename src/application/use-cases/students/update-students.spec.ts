@@ -10,7 +10,7 @@ describe('Show student use cases', () => {
     const studentRepository = new InMemoryStudentRepository();
     const createStudent = new CreateStudent(studentRepository);
     const updateStudent = new UpdateStudent(studentRepository);
-    const course = makeCourse();
+
     const show = new ShowStudents(studentRepository);
 
     const { student } = await createStudent.execute({
@@ -19,7 +19,6 @@ describe('Show student use cases', () => {
       cpf: '087.405.434-63',
       rg: '000000000',
       school_education: 'superior completo',
-      course: [course],
     });
 
     const { student: studentUpdated } = await updateStudent.execute({
@@ -29,7 +28,6 @@ describe('Show student use cases', () => {
       cpf: '087.405.434-63',
       rg: '000000000',
       school_education: 'superior completo 1',
-      course: [course],
     });
     const list = await show.execute({ id: studentUpdated.id });
     expect(studentUpdated).not.toEqual(student);

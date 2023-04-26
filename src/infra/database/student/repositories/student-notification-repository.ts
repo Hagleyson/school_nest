@@ -3,10 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { StudentRepository } from '@application/repositories/student-repository';
 import { Student } from '@application/entities/student';
 import { PrismaStudentMapper } from '../mappers/prisma-students-mapper';
+import { AddingOrRemovingStudentCourseRequest } from 'src/shared/interfaces';
 
 @Injectable()
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prismaService: PrismaService) {}
+
   async findById(student_id: number): Promise<Student> {
     const student = await this.prismaService.student.findUnique({
       where: { id: student_id },
@@ -35,5 +37,10 @@ export class PrismaStudentRepository implements StudentRepository {
   }
   async delete(student_id: number): Promise<void> {
     await this.prismaService.student.delete({ where: { id: +student_id } });
+  }
+  async addingOrRemovingStudentCourse(
+    props: AddingOrRemovingStudentCourseRequest,
+  ): Promise<any> {
+    throw new Error('Method not implemented.');
   }
 }

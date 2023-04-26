@@ -13,15 +13,12 @@ describe('Delete student use cases', () => {
     const createStudent = new CreateStudent(studentRepository);
     const listStudent = new ListStudent(studentRepository);
 
-    const course = makeCourse();
-
     const { student } = await createStudent.execute({
       birth_date: new Date(),
       cpf: '',
       name: '',
       rg: '',
       school_education: '',
-      course: [course],
     });
 
     await deleteStudent.execute({ id: student.id });
