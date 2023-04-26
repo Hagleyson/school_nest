@@ -8,7 +8,7 @@ export interface StudentProps {
   rg: string;
   school_education: string;
   birth_date: Date;
-  createdAt?: Date;
+  created_at?: Date;
   course?: Course[];
 }
 
@@ -16,11 +16,14 @@ export class Student {
   private _id: number;
   private props: StudentProps;
 
-  constructor(props: Replace<StudentProps, { createdAt?: Date }>, id?: number) {
+  constructor(
+    props: Replace<StudentProps, { created_at?: Date }>,
+    id?: number,
+  ) {
     this.props = {
       ...props,
       course: [],
-      createdAt: props.createdAt ?? new Date(),
+      created_at: props.created_at ?? new Date(),
     };
     this.id = id;
   }
@@ -30,6 +33,10 @@ export class Student {
   }
   public get id() {
     return this._id;
+  }
+
+  public get course() {
+    return this.props.course;
   }
   public set name(name: string) {
     this.props.name = name;
@@ -60,5 +67,13 @@ export class Student {
   }
   public get birth_date() {
     return this.props.birth_date;
+  }
+  public add_course(course: Course) {
+    this.props.course.push(course);
+  }
+  public remove_course(course: Course) {
+    this.props.course = this.props.course.filter(
+      (current) => current.id !== course.id,
+    );
   }
 }

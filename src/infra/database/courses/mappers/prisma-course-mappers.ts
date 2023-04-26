@@ -10,7 +10,7 @@ export class PrismaCourseMapper {
       name: course.name,
       period: course.period,
       teacher_name: course.teacher_name,
-      createdAt: course.createdAt,
+      created_at: course.created_at,
     };
 
     return formattedData;
@@ -23,7 +23,7 @@ export class PrismaCourseMapper {
         name: raw.name,
         period: raw.period,
         teacher_name: raw.teacher_name,
-        createdAt: raw.createdAt,
+        created_at: raw.created_at,
       },
       raw.id,
     );

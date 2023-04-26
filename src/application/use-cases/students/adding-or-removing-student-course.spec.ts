@@ -1,9 +1,7 @@
 import { InMemoryStudentRepository } from '@test/repositories/in-memory-student-repository';
 import { CreateStudent } from './create-students';
 import { AddingOrRemovingStudentCourse } from './adding-or-removing-student-course';
-import { ListStudent } from './list-students';
 import { InMemoryCourseRepository } from '@test/repositories/in-memory-course-repository';
-import { makeCourse } from '@test/factories/course-factory';
 import { CreateCourse } from '../courses';
 
 describe('Adding curse in student use cases', () => {
@@ -47,13 +45,14 @@ describe('Adding curse in student use cases', () => {
 
     await addingOrRemovingStudentCourse.execute({
       student_id: student.id,
-      newCourses: [course.course.id, course2.course.id],
-      removedCourses: [],
+      new_courses: [course.course.id, course2.course.id],
+      removed_courses: [],
     });
     await addingOrRemovingStudentCourse.execute({
       student_id: student.id,
-      newCourses: [course3.course.id],
-      removedCourses: [course2.course.id],
+      new_courses: [course3.course.id],
+      removed_courses: [course2.course.id],
     });
+    expect(student.course).toEqual([course.course, course3.course]);
   });
 });

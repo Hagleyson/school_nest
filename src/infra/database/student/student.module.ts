@@ -2,7 +2,7 @@ import { StudentRepository } from '@application/repositories/student-repository'
 import { PrismaService } from '../prisma.service';
 
 import { Module } from '@nestjs/common';
-import { PrismaStudentRepository } from './repositories/student-notification-repository';
+import { PrismaStudentRepository } from './repositories/student-repository';
 
 @Module({
   providers: [

@@ -10,7 +10,7 @@ interface createStudentRequest {
   rg: string;
   school_education: string;
   birth_date: Date;
-  createdAt?: Date;
+  created_at?: Date;
 }
 
 interface createStudentResponse {

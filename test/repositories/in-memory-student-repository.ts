@@ -37,9 +37,17 @@ export class InMemoryStudentRepository implements StudentRepository {
     this.student = filteredStudent;
   }
 
-  async addingOrRemovingStudentCourse(
-    props: AddingOrRemovingStudentCourseRequest,
-  ): Promise<any> {
-    console.log(props);
+  async addingOrRemovingStudentCourse({
+    student,
+  }: {
+    student: Student;
+  }): Promise<any> {
+    this.student = this.student.map((currentStudent) => {
+      if (currentStudent.id === student.id) {
+        return student;
+      } else {
+        return currentStudent;
+      }
+    });
   }
 }

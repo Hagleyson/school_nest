@@ -8,7 +8,7 @@ export class PrismaStudentMapper {
       id: student.id,
       birth_date: moment(student.birth_date, 'DD/MM/YYYY').toDate(),
       cpf: student.cpf,
-      createdAt: new Date(),
+      created_at: new Date(),
       name: student.name,
       rg: student.rg,
       school_education: student.school_education,

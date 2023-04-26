@@ -7,10 +7,12 @@ import {
   ShowStudents,
   UpdateStudent,
   DeleteStudents,
+  AddingOrRemovingStudentCourse,
 } from '@application/use-cases';
+import { CourseModuleDb } from '@infra/database/courses/course-db.module';
 
 @Module({
-  imports: [StudentModuleDb],
+  imports: [StudentModuleDb, CourseModuleDb],
   controllers: [StudentController],
   providers: [
     CreateStudent,
@@ -18,6 +20,7 @@ import {
     ListStudent,
     UpdateStudent,
     DeleteStudents,
+    AddingOrRemovingStudentCourse,
   ],
 })
 export class StudentModule {}

@@ -38,9 +38,14 @@ export class PrismaStudentRepository implements StudentRepository {
   async delete(student_id: number): Promise<void> {
     await this.prismaService.student.delete({ where: { id: +student_id } });
   }
-  async addingOrRemovingStudentCourse(
-    props: AddingOrRemovingStudentCourseRequest,
-  ): Promise<any> {
-    throw new Error('Method not implemented.');
+
+  async addingOrRemovingStudentCourse({
+    student,
+  }: AddingOrRemovingStudentCourseRequest): Promise<any> {
+    console.log('chegoou aqui', student.course[0].id, ' ', student.id);
+    await this.prismaService.courseOnStudent.create({
+      data: { course_id: 1, student_id: 1 },
+    });
+    console.log('chegoou aqui 2');
   }
 }

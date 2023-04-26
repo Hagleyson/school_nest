@@ -8,7 +8,7 @@ export function makeCourse(override: Override = {}) {
     content: 'string',
     period: 'string',
     teacher_name: 'string',
-    createdAt: new Date(),
+    created_at: new Date(),
     ...override,
   });
 }

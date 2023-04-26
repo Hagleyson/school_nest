@@ -14,9 +14,9 @@ model Student {
   rg               String
   school_education String
   birth_date       DateTime
-  createdAt        DateTime          @default(now())
-  course           Course[]
-  CourseOnStudent  CourseOnStudent[]
+  created_at        DateTime          @default(now())  
+  course_on_student  CourseOnStudent[]
+ @@map("student")
 }
 
 model Course {
@@ -25,20 +25,17 @@ model Course {
   content         String
   period          String
   teacher_name    String
-  createdAt       DateTime
-  student         Student[]
-  CourseOnStudent CourseOnStudent[]
+  created_at       DateTime  
+  course_on_student CourseOnStudent[]
+  
+  @@map("course")
 }
 
 model CourseOnStudent {
-  studentId Int
-  student   Student @relation(fields: [studentId], references: [id])
-
-  courseId Int
-  course   Course @relation(fields: [courseId], references: [id])
-
-  assignedAt DateTime @default(now())
-  assignedBy String
-
-  @@id([studentId, courseId])
+  student_id Int      @map("student_id")
+  course_id     Int      @map("course_id")
+  student   Student      @relation(fields: [student_id], references: [id])
+  course       Course     @relation(fields: [course_id], references: [id])
+  @@id([student_id, course_id])
+  @@map("course_on_student")
 }

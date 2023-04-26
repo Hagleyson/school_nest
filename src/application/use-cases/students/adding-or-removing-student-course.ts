@@ -8,8 +8,8 @@ import { Course } from '@application/entities/courses';
 
 interface AddingOrRemovingStudentCourseRequest {
   student_id: number;
-  newCourses: number[];
-  removedCourses: number[];
+  new_courses: number[];
+  removed_courses: number[];
 }
 
 interface createStudentResponse {
@@ -25,27 +25,33 @@ export class AddingOrRemovingStudentCourse {
 
   async execute({
     student_id,
-    newCourses,
-    removedCourses,
+    new_courses,
+    removed_courses,
   }: AddingOrRemovingStudentCourseRequest): Promise<createStudentResponse> {
     const student = await this.studentRepository.findById(+student_id);
     if (!student) {
       throw new StudentNotFound();
     }
     const newCoursesModel: Course[] = [];
-    for (const iterator of newCourses) {
+    for (const iterator of new_courses) {
       newCoursesModel.push(await this.courseRepository.findById(iterator));
     }
     const removedCoursesDB: Course[] = [];
-    for (const iterator of removedCourses) {
+    for (const iterator of removed_courses) {
       removedCoursesDB.push(await this.courseRepository.findById(iterator));
     }
 
+    removedCoursesDB.forEach((element) => {
+      student.remove_course(element);
+    });
+    newCoursesModel.forEach((element) => {
+      student.add_course(element);
+    });
+
     await this.studentRepository.addingOrRemovingStudentCourse({
       student,
-      newCourses: newCoursesModel,
-      removedCourses: removedCoursesDB,
     });
+
     return null;
   }
 }

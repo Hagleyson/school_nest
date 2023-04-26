@@ -1,6 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
 import { StudentNotFound } from './erros/student-not-found';
 

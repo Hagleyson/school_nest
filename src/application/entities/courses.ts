@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import { Replace } from 'src/shared/helpers/Replace';
 
 export interface CourseProps {
@@ -6,14 +5,14 @@ export interface CourseProps {
   content: string;
   period: string;
   teacher_name: string;
-  createdAt?: Date;
+  created_at?: Date;
 }
 
 export class Course {
   private _id: number;
   private props: CourseProps;
-  constructor(props: Replace<CourseProps, { createdAt?: Date }>, id?: number) {
-    this.props = { ...props, createdAt: props.createdAt ?? new Date() };
+  constructor(props: Replace<CourseProps, { created_at?: Date }>, id?: number) {
+    this.props = { ...props, created_at: props.created_at ?? new Date() };
     this._id = id;
   }
   public set id(_id: number) {
@@ -46,10 +45,10 @@ export class Course {
   public get teacher_name() {
     return this.props.teacher_name;
   }
-  public set createdAt(createdAt: Date) {
-    this.props.createdAt = createdAt;
+  public set created_at(created_at: Date) {
+    this.props.created_at = created_at;
   }
-  public get createdAt(): Date {
-    return this.props.createdAt;
+  public get created_at(): Date {
+    return this.props.created_at;
   }
 }

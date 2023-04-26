@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CreateStudentBody } from '../dto';
+import { AddingOrRemoveStudentCourseBody, CreateStudentBody } from '../dto';
 import {
   CreateStudent,
   DeleteStudents,
@@ -16,6 +16,7 @@ import {
   ShowStudents,
   UpdateStudent,
 } from '@application/use-cases';
+import { AddingOrRemovingStudentCourse } from '@application/use-cases/students/adding-or-removing-student-course';
 
 @Controller('student')
 export class StudentController {
@@ -25,6 +26,7 @@ export class StudentController {
     private listStudent: ListStudent,
     private updateStudent: UpdateStudent,
     private deleteStudentById: DeleteStudents,
+    private addingOrRemoveCourse: AddingOrRemovingStudentCourse,
   ) {}
 
   @Post()
@@ -76,5 +78,13 @@ export class StudentController {
     return {
       ...student,
     };
+  }
+
+  @Put()
+  async addingOrRemoveCourseStudent(
+    @Body() body: AddingOrRemoveStudentCourseBody,
+  ): Promise<any> {
+    console.log('AAAAAAAAAAAAAAA ', body);
+    await this.addingOrRemoveCourse.execute({ ...body });
   }
 }

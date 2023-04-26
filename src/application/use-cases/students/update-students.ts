@@ -13,7 +13,7 @@ interface updateStudentRequest {
   school_education: string;
 
   birth_date: Date;
-  createdAt?: Date;
+  created_at?: Date;
 }
 
 interface updateStudentResponse {
@@ -32,7 +32,7 @@ export class UpdateStudent {
     school_education,
 
     birth_date,
-    createdAt,
+    created_at,
   }: updateStudentRequest): Promise<updateStudentResponse> {
     const filterStudent = await this.studentRepository.findById(+id);
     if (!filterStudent) {
@@ -45,7 +45,7 @@ export class UpdateStudent {
       school_education,
 
       birth_date,
-      createdAt,
+      created_at,
     });
 
     await this.studentRepository.update(id, student);
