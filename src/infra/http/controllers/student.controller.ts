@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Request,
 } from '@nestjs/common';
 
 import { AddingOrRemoveStudentCourseBody, CreateStudentBody } from '../dto';
@@ -31,7 +33,7 @@ export class StudentController {
 
   @Post()
   async create(@Body() body: CreateStudentBody) {
-    const { birth_date, cpf, name, rg, school_education, course } = body;
+    const { birth_date, cpf, name, rg, school_education } = body;
     await this.createStudent.execute({
       name,
       cpf,
@@ -45,7 +47,7 @@ export class StudentController {
   }
   @Put(':id')
   async update(@Param('id') id: number, @Body() body: CreateStudentBody) {
-    const { birth_date, cpf, name, rg, school_education, course } = body;
+    const { birth_date, cpf, name, rg, school_education } = body;
     await this.updateStudent.execute({
       id,
       birth_date,
@@ -66,8 +68,8 @@ export class StudentController {
     };
   }
   @Get()
-  async list() {
-    const student = await this.listStudent.execute();
+  async list(@Request() request) {
+    const student = await this.listStudent.execute(request.query);
     return {
       ...student,
     };
@@ -84,7 +86,7 @@ export class StudentController {
   async addingOrRemoveCourseStudent(
     @Body() body: AddingOrRemoveStudentCourseBody,
   ): Promise<any> {
-    console.log('AAAAAAAAAAAAAAA ', body);
     await this.addingOrRemoveCourse.execute({ ...body });
+    return { message: 'Successful Creation' };
   }
 }

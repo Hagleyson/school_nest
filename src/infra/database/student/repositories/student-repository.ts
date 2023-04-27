@@ -3,24 +3,49 @@ import { Injectable } from '@nestjs/common';
 import { StudentRepository } from '@application/repositories/student-repository';
 import { Student } from '@application/entities/student';
 import { PrismaStudentMapper } from '../mappers/prisma-students-mapper';
-import { AddingOrRemovingStudentCourseRequest } from 'src/shared/interfaces';
+import {
+  AddingOrRemovingStudentCourseRequest,
+  IListAllStudent,
+  IParamsListAllStudent,
+  IPrismaStudent,
+} from 'src/shared/interfaces';
 
 @Injectable()
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prismaService: PrismaService) {}
 
   async findById(student_id: number): Promise<Student> {
-    const student = await this.prismaService.student.findUnique({
-      where: { id: student_id },
-    });
+    const student: IPrismaStudent = await this.prismaService.student.findUnique(
+      {
+        where: { id: student_id },
+        include: { course_on_student: { include: { course: true } } },
+      },
+    );
     if (!student) {
       return null;
     }
     return PrismaStudentMapper.toDomain(student);
   }
-  async findAll(): Promise<Student[]> {
-    const student = await this.prismaService.student.findMany();
-    return student.map((element) => PrismaStudentMapper.toDomain(element));
+  async findAll({
+    page,
+    perPage,
+  }: IParamsListAllStudent): Promise<IListAllStudent | Student[]> {
+    const totalItems = await this.prismaService.student.count();
+    const student: IPrismaStudent[] = await this.prismaService.student.findMany(
+      {
+        skip: +page === 1 ? 0 : +page * perPage,
+        take: +perPage,
+        include: { course_on_student: { include: { course: true } } },
+      },
+    );
+
+    return {
+      meta: {
+        current_page: +page,
+        total_pages: Math.ceil(+totalItems / +perPage),
+      },
+      students: student.map((element) => PrismaStudentMapper.toDomain(element)),
+    };
   }
   async create(student: Student): Promise<void> {
     const raw = PrismaStudentMapper.toPrisma(student);
@@ -41,11 +66,19 @@ export class PrismaStudentRepository implements StudentRepository {
 
   async addingOrRemovingStudentCourse({
     student,
-  }: AddingOrRemovingStudentCourseRequest): Promise<any> {
-    console.log('chegoou aqui', student.course[0].id, ' ', student.id);
-    await this.prismaService.courseOnStudent.create({
-      data: { course_id: 1, student_id: 1 },
-    });
-    console.log('chegoou aqui 2');
+  }: AddingOrRemovingStudentCourseRequest): Promise<void> {
+    const create_relationship = student.course.map((current) => ({
+      course_id: current.id,
+      student_id: student.id,
+    }));
+
+    await this.prismaService.$transaction([
+      this.prismaService.courseOnStudent.deleteMany({
+        where: { student_id: student.id },
+      }),
+      this.prismaService.courseOnStudent.createMany({
+        data: create_relationship,
+      }),
+    ]);
   }
 }

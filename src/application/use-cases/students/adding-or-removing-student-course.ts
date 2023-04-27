@@ -48,10 +48,8 @@ export class AddingOrRemovingStudentCourse {
       student.add_course(element);
     });
 
-    await this.studentRepository.addingOrRemovingStudentCourse({
+    return this.studentRepository.addingOrRemovingStudentCourse({
       student,
     });
-
-    return null;
   }
 }

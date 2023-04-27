@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import { Replace } from 'src/shared/helpers/Replace';
 import { Course } from './courses';
 
@@ -22,7 +21,7 @@ export class Student {
   ) {
     this.props = {
       ...props,
-      course: [],
+      course: props.course ?? [],
       created_at: props.created_at ?? new Date(),
     };
     this.id = id;

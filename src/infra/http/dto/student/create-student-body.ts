@@ -16,11 +16,5 @@ export class CreateStudentBody {
   school_education: string;
 
   @IsNotEmpty()
-  @Type(() => CreateCourseBody)
-  @IsArray()
-  @ValidateNested({ each: true })
-  course?: CreateCourseBody[];
-
-  @IsNotEmpty()
   birth_date: Date;
 }

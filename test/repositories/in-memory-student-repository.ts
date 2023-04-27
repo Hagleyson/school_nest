@@ -1,6 +1,6 @@
 import { Student } from '@application/entities/student';
 import { StudentRepository } from '@application/repositories/student-repository';
-import { AddingOrRemovingStudentCourseRequest } from 'src/shared/interfaces';
+import { IListAllStudent, IParamsListAllStudent } from 'src/shared/interfaces';
 
 export class InMemoryStudentRepository implements StudentRepository {
   public student: Student[] = [];
@@ -17,8 +17,11 @@ export class InMemoryStudentRepository implements StudentRepository {
     }
     return student;
   }
-  async findAll(): Promise<Student[]> {
-    return this.student;
+  async findAll(query: IParamsListAllStudent): Promise<IListAllStudent> {
+    return {
+      meta: { current_page: 1, total_pages: this.student.length },
+      students: this.student,
+    };
   }
   async update(id: number, student: Student): Promise<void> {
     const updatedStudent = this.student.map((item) => {

@@ -22,7 +22,11 @@ describe('Delete student use cases', () => {
     });
 
     await deleteStudent.execute({ id: student.id });
-    const { student: list } = await listStudent.execute();
+    const { students: list } = await listStudent.execute({
+      noPaginate: false,
+      page: 1,
+      perPage: 0,
+    });
 
     expect(list).toHaveLength(0);
   });
