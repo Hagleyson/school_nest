@@ -16,12 +16,11 @@ describe('Create student use cases', () => {
       school_education: 'superior completo',
     });
 
-    const list = await findStudent.execute({
-      noPaginate: false,
+    const { students } = await findStudent.execute({
       page: 1,
       perPage: 0,
     });
-    expect(list.students).toHaveLength(1);
-    expect(list.students).toEqual([student]);
+    expect(students).toHaveLength(1);
+    expect(students).toEqual([student]);
   });
 });

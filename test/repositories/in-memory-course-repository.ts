@@ -1,5 +1,7 @@
 import { Course } from 'src/application/entities/courses';
 import { CourseRepository } from 'src/application/repositories/course-repository';
+import { IListAllCorse } from 'src/shared/interfaces/course';
+import { IParamsListAllCourse } from 'src/shared/interfaces/course';
 
 export class InMemoryCourseRepository implements CourseRepository {
   public courses: Course[] = [];
@@ -15,8 +17,8 @@ export class InMemoryCourseRepository implements CourseRepository {
     }
     return course;
   }
-  async findAll(): Promise<Course[]> {
-    return this.courses;
+  async findAll(query?: IParamsListAllCourse): Promise<IListAllCorse> {
+    return { meta: { total_pages: 1, current_page: 1 }, courses: this.courses };
   }
   async update(id: number, course: Course): Promise<void> {
     const updatedCourse = this.courses.map((item) => {

@@ -18,6 +18,6 @@ describe('list course use cases', () => {
 
     const list = await findCourse.execute();
 
-    expect(list.course).toHaveLength(5);
+    expect(list.courses).toHaveLength(5);
   });
 });

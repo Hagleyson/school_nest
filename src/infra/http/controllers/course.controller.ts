@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Request,
   Put,
 } from '@nestjs/common';
 
@@ -16,6 +17,7 @@ import {
   UpdateCourse,
 } from '@application/use-cases';
 import { CreateCourseBody } from '../dto/course/create-course-body';
+import { request } from 'http';
 
 @Controller('courses')
 export class CoursesController {
@@ -46,8 +48,8 @@ export class CoursesController {
   }
 
   @Get()
-  async list() {
-    const courses = await this.listCourse.execute();
+  async list(@Request() request) {
+    const courses = await this.listCourse.execute(request.query);
     return {
       ...courses,
     };

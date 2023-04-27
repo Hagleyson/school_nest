@@ -27,13 +27,13 @@ export class PrismaStudentRepository implements StudentRepository {
     return PrismaStudentMapper.toDomain(student);
   }
   async findAll({
-    page,
-    perPage,
-  }: IParamsListAllStudent): Promise<IListAllStudent | Student[]> {
+    page = 1,
+    perPage = 10,
+  }: IParamsListAllStudent): Promise<IListAllStudent> {
     const totalItems = await this.prismaService.student.count();
     const student: IPrismaStudent[] = await this.prismaService.student.findMany(
       {
-        skip: +page === 1 ? 0 : +page * perPage,
+        skip: +page === 1 ? 0 : +page * +perPage,
         take: +perPage,
         include: { course_on_student: { include: { course: true } } },
       },

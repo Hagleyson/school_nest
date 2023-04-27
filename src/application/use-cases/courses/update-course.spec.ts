@@ -32,7 +32,7 @@ describe('Update course use cases', () => {
     });
     const list = await findCourse.execute();
 
-    expect(list.course).toHaveLength(2);
+    expect(list.courses).toHaveLength(2);
     expect(courseRepository.courses[0]).toEqual(updatedCourse);
     expect(courseRepository.courses[1]).not.toEqual(updatedCourse);
   });

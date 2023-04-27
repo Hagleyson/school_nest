@@ -26,12 +26,11 @@ describe('List student use cases', () => {
     });
 
     const list = await findStudent.execute({
-      noPaginate: true,
       page: 1,
       perPage: 0,
     });
 
-    expect(list).toHaveLength(2);
-    expect(list).toEqual([student, student2]);
+    expect(list.students).toHaveLength(2);
+    expect(list.students).toEqual([student, student2]);
   });
 });

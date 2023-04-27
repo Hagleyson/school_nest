@@ -27,7 +27,7 @@ describe('Delete course use cases', () => {
 
     const list = await findCourse.execute();
 
-    expect(list.course).toHaveLength(1);
+    expect(list.courses).toHaveLength(1);
     expect(courseRepository.courses[0]).toEqual(course1);
   });
 });

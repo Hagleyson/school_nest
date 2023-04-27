@@ -4,6 +4,10 @@ import { CourseRepository } from '@application/repositories/course-repository';
 import { PrismaService } from '@infra/database/prisma.service';
 import { CourseNotFound } from '@application/use-cases/courses/erros/course-not-found';
 import { PrismaCourseMapper } from '../mappers/prisma-course-mappers';
+import {
+  IListAllCorse,
+  IParamsListAllCourse,
+} from 'src/shared/interfaces/course';
 
 @Injectable()
 export class PrismaCourseRepository implements CourseRepository {
@@ -19,9 +23,22 @@ export class PrismaCourseRepository implements CourseRepository {
     return PrismaCourseMapper.toDomain(course);
   }
 
-  async findAll(): Promise<Course[]> {
-    const course = await this.prismaService.course.findMany();
-    return course.map((item) => PrismaCourseMapper.toDomain(item));
+  async findAll({
+    page = 1,
+    perPage = 10,
+  }: IParamsListAllCourse): Promise<IListAllCorse> {
+    const course = await this.prismaService.course.findMany({
+      skip: +page === 1 ? 0 : +page * perPage,
+      take: +perPage,
+    });
+    const totalItems = await this.prismaService.course.count();
+    return {
+      meta: {
+        current_page: +page,
+        total_pages: Math.ceil(+totalItems / +perPage),
+      },
+      courses: course.map((item) => PrismaCourseMapper.toDomain(item)),
+    };
   }
 
   async create(course: Course): Promise<void> {

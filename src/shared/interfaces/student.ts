@@ -1,6 +1,6 @@
 import { Course, CourseOnStudent } from '@prisma/client';
 import { Student } from '@application/entities/student';
-import { IMeta } from './IMeta';
+import { IMeta } from './meta';
 
 export type CourseOnStudentModel = {
   course: Course;

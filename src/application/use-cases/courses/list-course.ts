@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Course } from '../../entities/courses';
 import { CourseRepository } from '../../repositories/course-repository';
-
-interface listCourseResponse {
-  course: Course[];
-}
+import {
+  IListAllCorse,
+  IParamsListAllCourse,
+} from 'src/shared/interfaces/course';
 
 @Injectable()
 export class ListCourse {
   constructor(private courseRepository: CourseRepository) {}
 
-  async execute(): Promise<listCourseResponse> {
-    const course = await this.courseRepository.findAll();
-    return { course };
+  async execute(query?: IParamsListAllCourse): Promise<IListAllCorse> {
+    return this.courseRepository.findAll(query);
   }
 }
