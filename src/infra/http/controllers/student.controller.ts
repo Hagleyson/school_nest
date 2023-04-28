@@ -81,7 +81,7 @@ export class StudentController {
       ...student,
     };
   }
-  @Get(':id')
+  @Get('/show/:id')
   async show(@Param('id') id: number): Promise<any> {
     const student = await this.showStudent.execute({ id });
     return {
@@ -89,7 +89,7 @@ export class StudentController {
     };
   }
 
-  @Get()
+  @Get('/email')
   async findByEmail(@Query('email') email: string): Promise<any> {
     const student = await this.findByEmailAddress.execute({ email });
     return {

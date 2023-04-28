@@ -20,7 +20,7 @@ export class PrismaStudentMapper {
     return formattedData;
   }
 
-  static toDomain(raw: IPrismaStudent) {
+  static toDomain(raw: IPrismaStudent, isEmail?: boolean) {
     return new Student(
       {
         birth_date: raw.birth_date,
@@ -29,6 +29,7 @@ export class PrismaStudentMapper {
         rg: raw.rg,
         school_education: raw.school_education,
         email: raw.email,
+        password: isEmail ? raw.password : undefined,
         course: raw.course_on_student.map(
           (current) => new Course(current.course),
         ),

@@ -15,6 +15,7 @@ export interface IPrismaStudent {
   email: string;
   birth_date: Date;
   created_at: Date;
+  password: string | undefined;
   course_on_student: CourseOnStudentModel[];
 }
 

@@ -23,7 +23,7 @@ export class PrismaStudentRepository implements StudentRepository {
     if (!student) {
       return null;
     }
-    return PrismaStudentMapper.toDomain(student);
+    return PrismaStudentMapper.toDomain(student, true);
   }
 
   async findById(student_id: number): Promise<Student> {

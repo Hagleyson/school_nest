@@ -8,6 +8,7 @@ import {
   UpdateStudent,
   DeleteStudents,
   AddingOrRemovingStudentCourse,
+  FindByEmailUseCase,
 } from '@application/use-cases';
 import { CourseModuleDb } from '@infra/database/courses/course-db.module';
 
@@ -21,6 +22,7 @@ import { CourseModuleDb } from '@infra/database/courses/course-db.module';
     UpdateStudent,
     DeleteStudents,
     AddingOrRemovingStudentCourse,
+    FindByEmailUseCase,
   ],
 })
 export class StudentModule {}
