@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Student } from '../../entities/student';
 import { StudentRepository } from '../../repositories/student-repository';
-import { Course } from '@application/entities/courses';
-
+import * as bcrypt from 'bcrypt';
 interface createStudentRequest {
   name: string;
   cpf: string;
@@ -11,6 +10,8 @@ interface createStudentRequest {
   school_education: string;
   birth_date: Date;
   created_at?: Date;
+  email: string;
+  password: string;
 }
 
 interface createStudentResponse {
@@ -27,6 +28,8 @@ export class CreateStudent {
     rg,
     school_education,
     birth_date,
+    email,
+    password,
   }: createStudentRequest): Promise<createStudentResponse> {
     const student = new Student({
       name,
@@ -34,6 +37,8 @@ export class CreateStudent {
       rg,
       school_education,
       birth_date,
+      email,
+      password: await bcrypt.hash(password, 10),
     });
 
     await this.studentRepository.create(student);

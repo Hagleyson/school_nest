@@ -13,6 +13,18 @@ import {
 @Injectable()
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prismaService: PrismaService) {}
+  async findByEmail(email: string): Promise<Student> {
+    const student: IPrismaStudent = await this.prismaService.student.findUnique(
+      {
+        where: { email },
+        include: { course_on_student: { include: { course: true } } },
+      },
+    );
+    if (!student) {
+      return null;
+    }
+    return PrismaStudentMapper.toDomain(student);
+  }
 
   async findById(student_id: number): Promise<Student> {
     const student: IPrismaStudent = await this.prismaService.student.findUnique(

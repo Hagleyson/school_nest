@@ -12,6 +12,7 @@ export interface IPrismaStudent {
   cpf: string;
   rg: string;
   school_education: string;
+  email: string;
   birth_date: Date;
   created_at: Date;
   course_on_student: CourseOnStudentModel[];

@@ -1,8 +1,6 @@
 import { Course } from '@application/entities/courses';
 import { Student } from '@application/entities/student';
-import { Student as RawStudent } from '@prisma/client';
 import * as moment from 'moment';
-import { Replace } from 'src/shared/helpers/Replace';
 import { IPrismaStudent } from 'src/shared/interfaces';
 
 export class PrismaStudentMapper {
@@ -15,6 +13,8 @@ export class PrismaStudentMapper {
       name: student.name,
       rg: student.rg,
       school_education: student.school_education,
+      email: student.email,
+      password: student.password,
     };
 
     return formattedData;
@@ -28,6 +28,7 @@ export class PrismaStudentMapper {
         name: raw.name,
         rg: raw.rg,
         school_education: raw.school_education,
+        email: raw.email,
         course: raw.course_on_student.map(
           (current) => new Course(current.course),
         ),

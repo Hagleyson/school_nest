@@ -5,6 +5,8 @@ export interface StudentProps {
   name: string;
   cpf: string;
   rg: string;
+  email: string;
+  password?: string;
   school_education: string;
   birth_date: Date;
   created_at?: Date;
@@ -74,5 +76,11 @@ export class Student {
     this.props.course = this.props.course.filter(
       (current) => current.id !== course.id,
     );
+  }
+  public get email() {
+    return this.props.email;
+  }
+  public get password() {
+    return this.props.password;
   }
 }

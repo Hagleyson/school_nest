@@ -1,10 +1,26 @@
-import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, ValidateNested } from 'class-validator';
-import { CreateCourseBody } from '../course/create-course-body';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateStudentBody {
   @IsNotEmpty()
   name: string;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(4)
+  @MaxLength(20)
+  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+    message: 'password too weak',
+  })
+  password: string;
 
   @IsNotEmpty()
   cpf: string;

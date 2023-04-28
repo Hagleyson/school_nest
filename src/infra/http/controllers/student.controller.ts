@@ -14,11 +14,13 @@ import { AddingOrRemoveStudentCourseBody, CreateStudentBody } from '../dto';
 import {
   CreateStudent,
   DeleteStudents,
+  FindByEmailUseCase,
   ListStudent,
   ShowStudents,
   UpdateStudent,
 } from '@application/use-cases';
 import { AddingOrRemovingStudentCourse } from '@application/use-cases/students/adding-or-removing-student-course';
+import { UpdateStudentBody } from '../dto/student/update-student-body';
 
 @Controller('student')
 export class StudentController {
@@ -29,25 +31,29 @@ export class StudentController {
     private updateStudent: UpdateStudent,
     private deleteStudentById: DeleteStudents,
     private addingOrRemoveCourse: AddingOrRemovingStudentCourse,
+    private findByEmailAddress: FindByEmailUseCase,
   ) {}
 
   @Post()
   async create(@Body() body: CreateStudentBody) {
-    const { birth_date, cpf, name, rg, school_education } = body;
+    const { birth_date, cpf, name, rg, school_education, email, password } =
+      body;
     await this.createStudent.execute({
       name,
       cpf,
       rg,
       school_education,
       birth_date,
+      email,
+      password,
     });
     return {
       ...body,
     };
   }
   @Put(':id')
-  async update(@Param('id') id: number, @Body() body: CreateStudentBody) {
-    const { birth_date, cpf, name, rg, school_education } = body;
+  async update(@Param('id') id: number, @Body() body: UpdateStudentBody) {
+    const { birth_date, cpf, name, rg, school_education, email } = body;
     await this.updateStudent.execute({
       id,
       birth_date,
@@ -55,6 +61,7 @@ export class StudentController {
       name,
       rg,
       school_education,
+      email,
     });
     return {
       ...body,
@@ -77,6 +84,14 @@ export class StudentController {
   @Get(':id')
   async show(@Param('id') id: number): Promise<any> {
     const student = await this.showStudent.execute({ id });
+    return {
+      ...student,
+    };
+  }
+
+  @Get()
+  async findByEmail(@Query('email') email: string): Promise<any> {
+    const student = await this.findByEmailAddress.execute({ email });
     return {
       ...student,
     };
