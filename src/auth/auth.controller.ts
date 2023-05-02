@@ -9,6 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { IAutRequest } from './interfaces/AutRequest';
+import { IsPublic } from './decorators/is-public.decorator';
 
 @Controller()
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
+  @IsPublic()
   async login(@Request() req: IAutRequest) {
     console.log(req.user);
     return this.authService.login(req.user);
