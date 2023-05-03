@@ -2,12 +2,15 @@
 CREATE TABLE `student` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
     `cpf` VARCHAR(191) NOT NULL,
     `rg` VARCHAR(191) NOT NULL,
     `school_education` VARCHAR(191) NOT NULL,
     `birth_date` DATETIME(3) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
+    UNIQUE INDEX `student_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -29,6 +32,17 @@ CREATE TABLE `course_on_student` (
     `course_id` INTEGER NOT NULL,
 
     PRIMARY KEY (`student_id`, `course_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `tokens` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `token` TEXT NOT NULL,
+    `refresh_token` TEXT NOT NULL,
+    `user_email` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `tokens_user_email_key`(`user_email`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey

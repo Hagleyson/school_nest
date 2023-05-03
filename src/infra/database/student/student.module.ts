@@ -12,6 +12,6 @@ import { PrismaStudentRepository } from './repositories/student-repository';
       useClass: PrismaStudentRepository,
     },
   ],
-  exports: [StudentRepository],
+  exports: [StudentRepository, PrismaService],
 })
 export class StudentModuleDb {}

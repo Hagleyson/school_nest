@@ -41,3 +41,13 @@ model CourseOnStudent {
   @@id([student_id, course_id])
   @@map("course_on_student")
 }
+
+
+model Tokens {
+  id                  Int @id @default(autoincrement())
+  token               String @db.Text
+  refresh_token       String @db.Text
+  user_email          String @unique
+  
+  @@map("tokens")
+}

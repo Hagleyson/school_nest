@@ -21,6 +21,7 @@ import {
 } from '@application/use-cases';
 import { AddingOrRemovingStudentCourse } from '@application/use-cases/students/adding-or-removing-student-course';
 import { UpdateStudentBody } from '../dto/student/update-student-body';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @Controller('student')
 export class StudentController {
@@ -35,6 +36,7 @@ export class StudentController {
   ) {}
 
   @Post()
+  @IsPublic()
   async create(@Body() body: CreateStudentBody) {
     const { birth_date, cpf, name, rg, school_education, email, password } =
       body;

@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   HttpCode,
   HttpStatus,
@@ -10,6 +11,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { IAutRequest } from './interfaces/AutRequest';
 import { IsPublic } from './decorators/is-public.decorator';
+import { RtGuard } from './guards/rt-jwt-auth.guard';
 
 @Controller()
 export class AuthController {
@@ -20,7 +22,14 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @IsPublic()
   async login(@Request() req: IAutRequest) {
-    console.log(req.user);
     return this.authService.login(req.user);
+  }
+
+  @IsPublic()
+  @UseGuards(RtGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(@Request() rq): Promise<any> {
+    return this.authService.refreshTokens(rq.user);
   }
 }
