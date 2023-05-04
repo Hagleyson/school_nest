@@ -32,4 +32,10 @@ export class AuthController {
   refreshTokens(@Request() rq): Promise<any> {
     return this.authService.refreshTokens(rq.user);
   }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  logout(@Request() rq): Promise<unknown> {
+    return this.authService.logout(rq.user);
+  }
 }

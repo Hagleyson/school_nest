@@ -1,6 +1,10 @@
 import { StudentRepository } from '@application/repositories/student-repository';
 
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 import * as bcrypt from 'bcrypt';
 import { IUser } from './interfaces/AutRequest';
@@ -8,7 +12,7 @@ import { UserPayload } from './interfaces/UserPayload';
 import { JwtService } from '@nestjs/jwt';
 import { UserToken } from './interfaces/UserToken';
 import { PrismaService } from '@infra/database/prisma.service';
-import { use } from 'passport';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -22,7 +26,7 @@ export class AuthService {
       name: user.name,
       sub: user.id,
     };
-    const access_token = this.jwtService.sign(payload, { expiresIn: '10s' });
+    const access_token = this.jwtService.sign(payload, { expiresIn: '1m' });
     const refresh_token = this.jwtService.sign(payload, { expiresIn: '10m' });
 
     const tokens = await this.prismaService.tokens.findFirst({
@@ -72,15 +76,21 @@ export class AuthService {
     throw new Error('Email address or password provided is incorrect. ');
   }
 
-  async refreshTokens(user): Promise<any> {
+  async refreshTokens(user): Promise<UserToken> {
+    console.log('user ', user);
     const token = await this.prismaService.tokens.findFirst({
-      where: { user_email: user.email, refresh_token: user.refresh_token },
+      where: { refresh_token: user.refreshToken, user_email: user.email },
     });
-    console.log(token);
     if (!token) {
-      throw new UnauthorizedException('user not Logged');
+      throw new ForbiddenException('Access Denied');
     }
-
     return this.login(user);
+  }
+
+  async logout(user) {
+    await this.prismaService.tokens.delete({
+      where: { user_email: user.email },
+    });
+    return { status: 200, message: 'logout successful' };
   }
 }
