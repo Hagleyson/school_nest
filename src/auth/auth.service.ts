@@ -1,10 +1,6 @@
 import { StudentRepository } from '@application/repositories/student-repository';
 
-import {
-  ForbiddenException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import * as bcrypt from 'bcrypt';
 import { IUser } from './interfaces/AutRequest';
@@ -27,7 +23,7 @@ export class AuthService {
       sub: user.id,
     };
     const access_token = this.jwtService.sign(payload, { expiresIn: '1m' });
-    const refresh_token = this.jwtService.sign(payload, { expiresIn: '10m' });
+    const refresh_token = this.jwtService.sign(payload, { expiresIn: '1h' });
 
     const tokens = await this.prismaService.tokens.findFirst({
       where: { user_email: user.email },
